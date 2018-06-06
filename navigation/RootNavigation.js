@@ -1,41 +1,54 @@
 import React from 'react';
+import {View} from 'react-native';
 import { Notifications } from 'expo';
 import { createSwitchNavigator } from 'react-navigation';
-
-import MainTabNavigator from './MainTabNavigator';
 import registerForPushNotificationsAsync from '../api/registerForPushNotificationsAsync';
+import MainTabNavigator from './MainTabNavigator';
+import LoginScreen from '../screens/Login/LoginScreen';
 
-const AppNavigator = createSwitchNavigator({
-  // You could add another route here for authentication.
-  // Read more at https://reactnavigation.org/docs/en/auth-flow.html
-  Main: MainTabNavigator,
-});
+const RootSwitchNavigator = createSwitchNavigator(
+    {
+        Login: {
+            screen: LoginScreen,
+        },
+        Main: {
+            screen: MainTabNavigator,
+        }
+    }
+);
 
-export default class RootNavigation extends React.Component {
-  componentDidMount() {
-    this._notificationSubscription = this._registerForPushNotifications();
-  }
+class RootNavigator extends React.Component {
+    componentDidMount() {
+        this._notificationSubscription = this._registerForPushNotifications();
+    }
 
-  componentWillUnmount() {
-    this._notificationSubscription && this._notificationSubscription.remove();
-  }
+    componentWillUnmount() {
+        this._notificationSubscription && this._notificationSubscription.remove();
+    }
 
-  render() {
-    return <AppNavigator />;
-  }
+    render() {
+        return (
+            <View style={{ flex: 1 }}>
+                <RootSwitchNavigator/>
+                {/*<ApolloDebugger/>*/}
+            </View>
+        )
+    }
 
-  _registerForPushNotifications() {
-    // Send our push token over to our backend so we can receive notifications
-    // You can comment the following line out if you want to stop receiving
-    // a notification every time you open the app. Check out the source
-    // for this function in api/registerForPushNotificationsAsync.js
-    registerForPushNotificationsAsync();
+    _registerForPushNotifications() {
+        // Send our push token over to our backend so we can receive notifications
+        // You can comment the following line out if you want to stop receiving
+        // a notification every time you open the app. Check out the source
+        // for this function in api/registerForPushNotificationsAsync.js
+        registerForPushNotificationsAsync();
 
-    // Watch for incoming notifications
-    this._notificationSubscription = Notifications.addListener(this._handleNotification);
-  }
+        // Watch for incoming notifications
+        this._notificationSubscription = Notifications.addListener(this._handleNotification);
+    }
 
-  _handleNotification = ({ origin, data }) => {
-    console.log(`Push notification ${origin} with data: ${JSON.stringify(data)}`);
-  };
+    _handleNotification = ({ origin, data }) => {
+        console.log(`Push notification ${origin} with data: ${JSON.stringify(data)}`);
+    };
 }
+
+export default RootNavigator;
