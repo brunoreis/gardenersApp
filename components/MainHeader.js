@@ -2,89 +2,61 @@ import React from 'react';
 import {
     Text,
     View,
+    StyleSheet,
     TouchableOpacity,
-    StyleSheet
 } from 'react-native';
-//import Icon from './Icon';
-
-export const headerStyle = {
-    backgroundColor: '#FFF',
-    elevation: 1,
-    height: 50,
-    paddingTop: 17
-};
-
-export const headerTitle = (title) => (
-    <Text style={styles.headerTitle}>
-        { title }
-    </Text>
-);
-
-export const renderBackButton = (navigation) => (
-    <TouchableOpacity
-        style={styles.backButton}
-        onPress={() => navigation.goBack()}
-    >
-        {/*<Icon
-            style={Platform.OS === 'ios' ? styles.iOSBackIcon : styles.androidBackIcon}
-            name='chevron-left'
-            size={24}
-            color='#000'
-        />*/}
-        <Text>
-            BACK
-        </Text>
-    </TouchableOpacity>
-);
+import { Icon } from 'react-native-elements';
+import Colors from '../constants/Colors';
 
 export default ({ title, hasBackButton }) => ({ navigation }) => {
     const configs = {
         headerStyle,
-        headerTitle: headerTitle(title)
+        headerTitle: renderTitle(title)
     };
 
     if (hasBackButton) {
         configs.headerLeft = renderBackButton(navigation);
-        configs.headerRight = <View/>
+        configs.headerRight = <View/>;
     }
     return configs;
 }
 
+export const renderBackButton = (navigation) => (
+    <TouchableOpacity
+        style={styles.backButtonArea}
+        onPress={() => navigation.goBack()}
+    >
+        <Icon
+            size={17}
+            color={Colors.white}
+            name='arrow-left'
+            type='material-community'
+            iconStyle={styles.backButtonIcon}
+        />
+    </TouchableOpacity>
+);
+
+export const renderTitle = (title) => (
+    <Text style={styles.headerTitle}>
+        { title.toUpperCase() }
+    </Text>
+);
+
+export const headerStyle = {
+    backgroundColor: Colors.tertiaryBlue,
+};
+
 const styles = StyleSheet.create({
-    headerTitle:{
+    headerTitle: {
         flex: 1,
-        fontSize: 15,
-        textAlign: 'center'
+        textAlign: 'center',
+        color: Colors.white
     },
-    customHeaderTitle: {
-        flex: 1,
-        flexDirection: 'row',
-        alignItems: 'center',
-        justifyContent: 'center'
+    backButtonArea: {
+        paddingTop: 5,
+        paddingRight: 30
     },
-    backButton:{
-        padding: 5,
-        paddingRight: 30,
-        height: '100%'
-    },
-    iOSBackIcon:{
-        position: 'relative',
-        marginLeft: 16,
-        bottom: -5
-    },
-    androidBackIcon:{
-        position: 'relative',
-        marginLeft: 16,
-        bottom: -7
-    },
-    rightIcon: {
-        position: 'relative',
-        bottom: 0,
-        marginRight: 16
-    },
-    leftIcon: {
-        position: 'relative',
-        bottom: 0,
+    backButtonIcon: {
         marginLeft: 16
-    },
+    }
 });

@@ -13,7 +13,7 @@ export default class LoginScreen extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            persistTokenChecked: false
+            hasValidToken: true
         };
     }
 
@@ -30,39 +30,39 @@ export default class LoginScreen extends React.Component {
                             navigation.navigate('Main');
                         }
                         else {
-                            this.setState({ persistTokenChecked:true })
+                            this.setState({ hasValidToken: false })
                         }
                     }
                 ).catch(
                     (e)=> {
                         console.log('error', e);
-                        this.setState({ persistTokenChecked:true })
+                        this.setState({ hasValidToken: false })
                     }
                 )
             } else {
-                this.setState({ persistTokenChecked:true })
+                this.setState({ hasValidToken: false })
             }
         })
     }
 
     render() {
         const { navigation } = this.props;
-        const { persistTokenChecked } = this.state;
-        if (persistTokenChecked) {
-            return (
-                <View style={{ flex: 1, padding: 20 }}>
-                    <LoginFormContainer
-                        navigateToMain={()=> navigation.navigate('Main')}
-                    />
-                </View>
-            )
-        } else {
+        const { hasValidToken } = this.state;
+        if (hasValidToken) {
             return (
                 <View style={{ flex: 1, justifyContent: 'center' }}>
                     <ActivityIndicator/>
                 </View>
             )
+
         }
+        return (
+            <View style={{ flex: 1, padding: 20 }}>
+                <LoginFormContainer
+                    navigateToMain={()=> navigation.navigate('Main')}
+                />
+            </View>
+        )
     }
 }
 

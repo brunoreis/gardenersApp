@@ -1,6 +1,6 @@
 import React from 'react';
 import PlantListContainer from './PlantListContainer';
-import { headerStyle, headerTitle } from '../../components/MainHeader';
+import {headerStyle, renderTitle} from '../../../components/MainHeader';
 
 export default class PlantsScreen extends React.Component {
     render() {
@@ -13,5 +13,5 @@ export default class PlantsScreen extends React.Component {
 
 PlantsScreen.navigationOptions = () => ({
     headerStyle,
-    headerTitle: headerTitle('Plantas')
+    headerTitle: renderTitle('Plantas')
 });

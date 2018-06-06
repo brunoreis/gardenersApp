@@ -7,9 +7,9 @@ import {
     TouchableOpacity
 } from 'react-native';
 import PlantItem from './PlantItem'
-import onScroll from '../../lib/onScroll';
-import callIfUserComesBackToThisRoute from '../../screens/callIfUserComesBackToThisRoute';
-import Colors from "../../constants/Colors";
+import onScroll from '../../../lib/onScroll';
+import callIfUserComesBackToThisRoute from '../../callIfUserComesBackToThisRoute';
+import Colors from "../../../constants/Colors";
 
 class PlantList extends React.Component {
     componentDidUpdate() {

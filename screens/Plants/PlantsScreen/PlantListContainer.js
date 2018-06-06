@@ -2,9 +2,9 @@ import React from 'react';
 import R from 'ramda';
 import PlantList from './PlantList';
 import { withProps } from 'recompose';
-import withQuery from '../../connectors/withQuery';
-import PLANTS_QUERY from '../../graphQL/queries/PLANTS_QUERY';
-import withSearch from '../../components/Search/withSearch';
+import withQuery from '../../../connectors/withQuery';
+import PLANTS_QUERY from '../../../graphQL/queries/PLANTS_QUERY';
+import withSearch from '../../../components/Search/withSearch';
 
 export default R.compose(
     withSearch({

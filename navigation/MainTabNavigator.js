@@ -4,12 +4,12 @@ import { Ionicons } from '@expo/vector-icons';
 import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
 
 import TabBarIcon from '../components/TabBarIcon';
-import HomeScreen from '../screens/Plants/PlantsScreen';
+import PlantsNavigator from '../screens/Plants/PlantsNavigator';
 import LinksScreen from '../screens/LinksScreen';
 import SettingsScreen from '../screens/SettingsScreen';
 
 const HomeStack = createStackNavigator({
-  Home: HomeScreen,
+  Home: PlantsNavigator,
 });
 
 HomeStack.navigationOptions = {

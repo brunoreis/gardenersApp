@@ -5,10 +5,10 @@ import {
     Image,
     StyleSheet
 } from 'react-native';
-import Fonts from '../../constants/Fonts';
-import Colors from '../../constants/Colors';
-import LoadingData from '../../components/LoadingData';
-import AmountIcon from '../../components/AmountIcon';
+import Fonts from '../../../constants/Fonts';
+import Colors from '../../../constants/Colors';
+import LoadingData from '../../../components/LoadingData';
+import AmountIcon from '../../../components/AmountIcon';
 
 class PlantItem extends React.Component {
     render() {
@@ -39,8 +39,8 @@ class PlantItem extends React.Component {
                     <Text numberOfLines={1} style={{ ...Fonts.itemTitle }}>
                         { plant.name.toUpperCase() }
                     </Text>
-                    <Text numberOfLines={1} style={{ ...Fonts.scientificName }}>
-                        { plant.scientific_name }
+                    <Text numberOfLines={1} style={{ ...Fonts.ordinaryText }}>
+                        { plant.edible_parts }
                     </Text>
                 </View>
                 <View style={{ flex: 0, width: 80, flexDirection: 'row' }}>
