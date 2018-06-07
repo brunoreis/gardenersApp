@@ -1,61 +1,88 @@
 import React from 'react';
-import { Platform } from 'react-native';
-import { Ionicons } from '@expo/vector-icons';
-import { createStackNavigator, createBottomTabNavigator } from 'react-navigation';
+import {
+    createBottomTabNavigator,
+    createStackNavigator
+} from 'react-navigation';
+import Colors from '../constants/Colors';
+import { Icon } from 'react-native-elements';
+import PlantsScreen from "../screens/Plants/PlantsScreen/PlantsScreen";
+import PlantScreen from "../screens/Plants/PlantScreen/PlantScreen";
+import SettingsScreen from "../screens/SettingsScreen";
+import LinksScreen from "../screens/LinksScreen";
 
-import TabBarIcon from '../components/TabBarIcon';
-import PlantsNavigator from '../screens/Plants/PlantsNavigator';
-import LinksScreen from '../screens/LinksScreen';
-import SettingsScreen from '../screens/SettingsScreen';
+const initialRouteName = 'Plants';
+const renderIcon = (routeName, iconName, focused) => {
+    return (
+        <Icon
+            size={22}
+            name={iconName}
+            type='ionicon'
+            style={{ marginBottom: -3, width: 22 }}
+            color={focused ? Colors.primaryBlue : Colors.lightGray}
+        />
+    );
+}
 
-const HomeStack = createStackNavigator({
-  Home: PlantsNavigator,
-});
 
-HomeStack.navigationOptions = {
-  tabBarLabel: 'Home',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={
-        Platform.OS === 'ios'
-          ? `ios-information-circle${focused ? '' : '-outline'}`
-          : 'md-information-circle'
-      }
-    />
-  ),
-};
-
-const LinksStack = createStackNavigator({
-  Links: LinksScreen,
-});
-
-LinksStack.navigationOptions = {
-  tabBarLabel: 'Links',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-link${focused ? '' : '-outline'}` : 'md-link'}
-    />
-  ),
-};
-
-const SettingsStack = createStackNavigator({
-  Settings: SettingsScreen,
-});
-
-SettingsStack.navigationOptions = {
-  tabBarLabel: 'Settings',
-  tabBarIcon: ({ focused }) => (
-    <TabBarIcon
-      focused={focused}
-      name={Platform.OS === 'ios' ? `ios-options${focused ? '' : '-outline'}` : 'md-options'}
-    />
-  ),
-};
-
-export default createBottomTabNavigator({
-  HomeStack,
-  LinksStack,
-  SettingsStack,
-});
+const tabNav = createBottomTabNavigator({
+        Plants: {
+            screen: createStackNavigator(
+                {
+                    Plants: {
+                        screen: PlantsScreen,
+                    },
+                    Plant: {
+                        screen: PlantScreen,
+                    }
+                }
+            ),
+        },
+        Links: {
+            screen: createStackNavigator(
+                {
+                    Links: {
+                        screen: LinksScreen
+                    }
+                }
+            ),
+        },
+        Settings: {
+            screen: createStackNavigator({
+                Settings: {
+                    screen: SettingsScreen,
+                }
+            })
+        }
+    },
+    {
+        initialRouteName,
+        navigationOptions: ({ navigation }) => ({
+            tabBarIcon: ({ focused }) => {
+                const { routeName } = navigation.state;
+                let iconName;
+                switch (routeName) {
+                    case 'Plants':
+                        iconName = `ios-leaf${focused ? '' : '-outline'}`;
+                        break;
+                    case 'Links':
+                        iconName = `ios-link${focused ? '' : '-outline'}`;
+                        break;
+                    case 'Settings':
+                        iconName = `ios-settings${focused ? '' : '-outline'}`;
+                        break;
+                    default:
+                        throw 'not defined'
+                }
+                return renderIcon(routeName, iconName, focused);
+            }
+        }),
+        tabBarOptions:{
+            showLabel: false,
+            style: {
+                borderTopWidth: 0.5,
+                borderTopColor: Colors.mediumGray
+            }
+        },
+        swipeEnabled: false
+    });
+export default tabNav;

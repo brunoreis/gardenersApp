@@ -15,7 +15,13 @@ export default R.compose(
         (props) => ({
             variables: {
                 first: 15,
-                filter: props.searchText ? { name_contain: props.searchText } : {},
+                filter: props.searchText
+                    ? {
+                        name_contains: props.searchText,
+                        OR: {
+                            edible_parts_contains: props.searchText
+                        }
+                    } : {},
             },
             extraProps:{
                 emptyMessage: props.emptyMessage ? props.emptyMessage : "Não há plantas cadastradas. 😢"

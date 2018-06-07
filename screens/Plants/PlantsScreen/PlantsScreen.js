@@ -1,6 +1,11 @@
 import React from 'react';
+import { View } from 'react-native';
 import PlantListContainer from './PlantListContainer';
-import {headerStyle, renderTitle} from '../../../components/MainHeader';
+import {
+    headerLeftIcon,
+    headerStyle,
+    headerTitle
+} from '../../../components/MainHeader';
 
 export default class PlantsScreen extends React.Component {
     render() {
@@ -11,7 +16,12 @@ export default class PlantsScreen extends React.Component {
     }
 }
 
-PlantsScreen.navigationOptions = () => ({
+PlantsScreen.navigationOptions = ({ navigation }) => ({
     headerStyle,
-    headerTitle: renderTitle('Plantas')
+    headerTitle: headerTitle('Plantas'),
+    headerRight: <View/>,
+    headerLeft: headerLeftIcon({
+        name: 'ios-menu',
+        onPress: () =>  navigation.openDrawer()
+    })
 });

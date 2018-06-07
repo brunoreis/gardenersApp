@@ -3,23 +3,65 @@ import {
     Text,
     View,
     StyleSheet,
-    TouchableOpacity,
+    TouchableOpacity
 } from 'react-native';
-import { Icon } from 'react-native-elements';
+import {Icon} from 'react-native-elements';
 import Colors from '../constants/Colors';
+import Fonts from "../constants/Fonts";
 
-export default ({ title, hasBackButton }) => ({ navigation }) => {
-    const configs = {
-        headerStyle,
-        headerTitle: renderTitle(title)
-    };
+export const headerStyle = {
+    height: 50,
+    paddingTop: 17,
+    backgroundColor: Colors.primaryBlue,
+};
 
-    if (hasBackButton) {
-        configs.headerLeft = renderBackButton(navigation);
-        configs.headerRight = <View/>;
-    }
-    return configs;
+export const headerTitle = (title) => (
+    <Text style={styles.headerTitle}>
+        { title }
+    </Text>
+);
+
+export const headerCustomTitle = (component) => {
+    return (
+        <View style={styles.customHeaderTitle}>
+            { component.props.children }
+        </View>
+    );
 }
+
+export const headerRightIcon = ({ onPress, disabled = false, name, color = Colors.white, isButtonText = false }) => (
+    <TouchableOpacity onPress={() => onPress()} disabled={disabled}>
+        { isButtonText
+            ? <Text style={[styles.rightIcon, { ...Fonts.headerTitle, color }]}>
+                { name }
+            </Text>
+            : <Icon
+                size={25}
+                name={name}
+                type='ionicon'
+                color={color}
+                iconStyle={styles.rightIcon}
+            />
+        }
+    </TouchableOpacity>
+);
+
+export const headerLeftIcon = ({ onPress, name, color = Colors.azure, isButtonText = false }) => (
+    <TouchableOpacity onPress={() => onPress()}>
+        { isButtonText
+            ? <Text style={[styles.leftIcon, { ...Fonts.headerTitle, color }]}>
+                {name}
+            </Text>
+            : <Icon
+                size={25}
+                name={name}
+                type='ionicon'
+                color={Colors.white}
+                iconStyle={styles.leftIcon}
+            />
+        }
+    </TouchableOpacity>
+);
 
 export const renderBackButton = (navigation) => (
     <TouchableOpacity
@@ -28,29 +70,40 @@ export const renderBackButton = (navigation) => (
     >
         <Icon
             size={17}
-            color={Colors.white}
+            type='ionicon'
             name='arrow-left'
-            type='material-community'
+            color={Colors.white}
             iconStyle={styles.backButtonIcon}
         />
     </TouchableOpacity>
 );
 
-export const renderTitle = (title) => (
-    <Text style={styles.headerTitle}>
-        { title.toUpperCase() }
-    </Text>
-);
+export default ({ title, hasBackButton }) => ({ navigation }) => {
+    const configs = {
+        headerStyle,
+        headerTitle: headerTitle(title)
+    };
 
-export const headerStyle = {
-    backgroundColor: Colors.tertiaryBlue,
-};
+    if (hasBackButton) {
+        configs.headerLeft = renderBackButton(navigation);
+        configs.headerRight = <View/>
+    }
+    return configs;
+}
 
 const styles = StyleSheet.create({
-    headerTitle: {
+    headerTitle:{
         flex: 1,
+        fontSize: 15,
+        color: Colors.white,
         textAlign: 'center',
-        color: Colors.white
+        fontFamily: 'Open Sans Bold'
+    },
+    customHeaderTitle: {
+        flex: 1,
+        flexDirection: 'row',
+        alignItems: 'center',
+        justifyContent: 'center'
     },
     backButtonArea: {
         paddingTop: 5,
@@ -58,5 +111,15 @@ const styles = StyleSheet.create({
     },
     backButtonIcon: {
         marginLeft: 16
-    }
+    },
+    rightIcon: {
+        flex: 0,
+        width: 25,
+        marginRight: 16
+    },
+    leftIcon: {
+        flex: 0,
+        width: 25,
+        marginLeft: 16
+    },
 });

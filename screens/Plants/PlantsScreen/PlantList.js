@@ -33,15 +33,10 @@ class PlantList extends React.Component {
     }
 
     renderEmptyMessage = () => {
-        const {
-            queryData: {
-                networkStatus,
-                data
-            },
-            emptyMessage
-        } = this.props;
-
-        if (networkStatus === 7 && data.length === 0) {
+        const { queryData, emptyMessage } = this.props;
+        const { networkStatus, data } = queryData;
+        const { plants } = data;
+        if (networkStatus === 7 && plants.edges.length === 0) {
             return (
                 <Text style={{ textAlign: 'center', marginTop: 15 }}>
                     {emptyMessage}
@@ -51,24 +46,21 @@ class PlantList extends React.Component {
     }
 
     render() {
-        const {
-            queryData,
-            navigation,
-        } = this.props;
+        const { queryData, navigation } = this.props;
         const { data, networkStatus, refetch } = queryData;
         const { plants } = data;
         const refreshing = networkStatus === 4 || networkStatus === 2;
         return (
             <FlatList
                 ListHeaderComponent = { this.renderHeader }
-                data={plants ? plants : []}
+                data={plants.edges ? plants.edges : []}
                 refreshing={ refreshing }
                 onRefresh={()=> refetch()}
-                keyExtractor={ (item) => '' + item.id }
+                keyExtractor={ (item) => '' + item.node.id }
                 style={{ flex: 1, backgroundColor: '#EEE' }}
                 renderItem={ this.renderItemFunction({navigation}) }
                 onMomentumScrollBegin={this.props.onMomentumScrollBegin}
-                //onScroll={ onScroll({queryData, connectionName: 'plants'}) }
+                onScroll={ onScroll({queryData, connectionName: 'plants'}) }
             />
         );
     }
@@ -76,11 +68,11 @@ class PlantList extends React.Component {
     renderItemFunction = ({ navigation }) => ({ item }) => {
         return (
             <TouchableOpacity
-                key={item.id}
+                key={item.node.id}
                 style={{ backgroundColor: Colors.white }}
-                onPress={() => navigation.navigate('Plant', { plantId: item.id })}>
+                onPress={() => navigation.navigate('Plant', { plantId: item.node.id })}>
                 <PlantItem
-                    plant={item}
+                    plant={item.node}
                     navigation={navigation}
                 />
             </TouchableOpacity>

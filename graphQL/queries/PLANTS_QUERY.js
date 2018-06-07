@@ -4,7 +4,14 @@ import PLANT_FRAGMENT from '../fragments/PLANT_FRAGMENT';
 export default gql`
     {
         plants {
-            ...plantDetails
+            pageInfo {
+                endCursor
+            }
+            edges {
+                node {
+                    ...plantDetails
+                }
+            }
         }
     }
     ${PLANT_FRAGMENT}
