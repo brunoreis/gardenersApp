@@ -42,15 +42,18 @@ class PlantItem extends React.Component {
                     <Text numberOfLines={1} style={{ ...Fonts.ordinaryText }}>
                         { plant.edible_parts }
                     </Text>
+                    <Text numberOfLines={3} style={{ ...Fonts.ordinaryText }}>
+                        { plant.planting_tips }
+                    </Text>
                 </View>
                 <View style={{ flex: 0, width: 80, flexDirection: 'row' }}>
                     <AmountIcon
-                        mainIcon={{ name: 'bowl', type: 'entypo' }}
+                        mainIcon={{ name: 'ios-nutrition', type: 'ionicon' }}
                         amount={0}
                     />
                     <View style={{ marginRight: 10 }} />
                     <AmountIcon
-                        mainIcon={{ name: 'shovel', type: 'material-community' }}
+                        mainIcon={{ name: 'ios-flower', type: 'ionicon' }}
                         amount={0}
                     />
                 </View>

@@ -17,6 +17,7 @@ class PlantList extends React.Component {
         callIfUserComesBackToThisRoute(
             this.props,
             () => {
+                console.log('queryData', queryData);
                 queryData.refetch()
             }
         )
@@ -46,7 +47,7 @@ class PlantList extends React.Component {
     }
 
     render() {
-        const { queryData, navigation } = this.props;
+        const { queryData, navigation, lockHeader } = this.props;
         const { data, networkStatus, refetch } = queryData;
         const { plants } = data;
         const refreshing = networkStatus === 4 || networkStatus === 2;
@@ -56,6 +57,7 @@ class PlantList extends React.Component {
                 data={plants.edges ? plants.edges : []}
                 refreshing={ refreshing }
                 onRefresh={()=> refetch()}
+                stickyHeaderIndices={lockHeader ? [0] : []}
                 keyExtractor={ (item) => '' + item.node.id }
                 style={{ flex: 1, backgroundColor: '#EEE' }}
                 renderItem={ this.renderItemFunction({navigation}) }
@@ -71,10 +73,7 @@ class PlantList extends React.Component {
                 key={item.node.id}
                 style={{ backgroundColor: Colors.white }}
                 onPress={() => navigation.navigate('Plant', { plantId: item.node.id })}>
-                <PlantItem
-                    plant={item.node}
-                    navigation={navigation}
-                />
+                <PlantItem plant={item.node}/>
             </TouchableOpacity>
         )
     }

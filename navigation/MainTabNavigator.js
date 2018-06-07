@@ -77,7 +77,7 @@ const tabNav = createBottomTabNavigator({
             }
         }),
         tabBarOptions:{
-            showLabel: false,
+            showLabel: true,
             style: {
                 borderTopWidth: 0.5,
                 borderTopColor: Colors.mediumGray

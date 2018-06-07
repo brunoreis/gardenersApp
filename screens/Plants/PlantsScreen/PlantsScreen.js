@@ -9,9 +9,8 @@ import {
 
 export default class PlantsScreen extends React.Component {
     render() {
-        const { navigation } = this.props;
         return (
-            <PlantListContainer navigation={ navigation }/>
+            <PlantListContainer/>
         )
     }
 }

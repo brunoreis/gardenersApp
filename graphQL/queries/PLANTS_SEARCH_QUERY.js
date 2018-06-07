@@ -3,16 +3,23 @@ import PLANT_FRAGMENT from '../fragments/PLANT_FRAGMENT';
 
 export default gql`
     query plantsSearch(
-    $first: Int,
-    $skip: Int,
+    $first: Int!,
+    $after: String,
     $filter: PlantFilter
     ) {
         plants(
             first: $first,
-            skip: $skip,
+            after: $after,
             filter: $filter
         ) {
-            ...plantDetails
+            pageInfo {
+                endCursor
+            }
+            edges {
+                node {
+                    ...plantDetails
+                }
+            }
         }
     }
     ${PLANT_FRAGMENT}

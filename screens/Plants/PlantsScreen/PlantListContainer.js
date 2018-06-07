@@ -2,11 +2,13 @@ import React from 'react';
 import R from 'ramda';
 import PlantList from './PlantList';
 import { withProps } from 'recompose';
+import { withNavigation } from 'react-navigation';
 import withQuery from '../../../connectors/withQuery';
-import PLANTS_QUERY from '../../../graphQL/queries/PLANTS_QUERY';
 import withSearch from '../../../components/Search/withSearch';
+import PLANTS_SEARCH_QUERY from "../../../graphQL/queries/PLANTS_SEARCH_QUERY";
 
 export default R.compose(
+    withNavigation,
     withSearch({
         emptyMessage: "Nenhuma planta foi encontrada. 😢",
         searchPlaceholder: 'Buscar'
@@ -26,13 +28,14 @@ export default R.compose(
             extraProps:{
                 emptyMessage: props.emptyMessage ? props.emptyMessage : "Não há plantas cadastradas. 😢"
             },
-            query: PLANTS_QUERY
+            query: PLANTS_SEARCH_QUERY
         })
     ),
     withProps(
         (ownProps) => {
             return ({
-                header: ownProps.searchBar
+                header: ownProps.searchBar,
+                lockHeader: ownProps.activeSearchBar
             })
         }
     )
