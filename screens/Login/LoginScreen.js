@@ -57,7 +57,7 @@ export default class LoginScreen extends React.Component {
 
         }
         return (
-            <View style={{ flex: 1, padding: 20 }}>
+            <View style={{ flex: 1 }}>
                 <LoginFormContainer
                     navigateToMain={()=> navigation.navigate('Main')}
                 />

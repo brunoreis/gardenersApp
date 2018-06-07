@@ -1,6 +1,12 @@
 import Colors from './Colors';
 
 export default {
+    header: {
+        fontSize: 20,
+        textAlign: 'center',
+        fontFamily: 'Open Sans Regular',
+        color: Colors.darkGray
+    },
     bigTitles: {
         fontSize: 16,
         fontFamily: 'Open Sans Regular',

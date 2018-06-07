@@ -1,8 +1,8 @@
 import React from 'react';
 import { View } from 'react-native';
-import MainTabNavigator from './MainTabNavigator';
-import LoginScreen from '../screens/Login/LoginScreen';
 import { createSwitchNavigator } from 'react-navigation';
+import LoginScreen from '../screens/Login/LoginScreen';
+import MainDrawerNavigator from "./MainDrawerNavigator";
 
 const RootSwitchNavigator = createSwitchNavigator(
     {
@@ -10,7 +10,7 @@ const RootSwitchNavigator = createSwitchNavigator(
             screen: LoginScreen,
         },
         Main: {
-            screen: MainTabNavigator,
+            screen: MainDrawerNavigator,
         }
     }
 );

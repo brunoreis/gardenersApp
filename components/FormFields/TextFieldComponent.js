@@ -4,8 +4,11 @@ import {
     Text,
     TextInput
 } from 'react-native';
+import Fonts from '../../constants/Fonts';
+import Colors from '../../constants/Colors';
+import FormStyles from '../../constants/FormStyles';
 
-export default class TextFieldComponent extends React.Component {
+export default class CustomTextField extends React.Component {
     render() {
         const {
             value,
@@ -13,29 +16,37 @@ export default class TextFieldComponent extends React.Component {
             errors,
             onChange,
             multiline,
-            placeholder,
-            numberOfLines,
-            secureTextEntry
+            blockSize,
+            numberOfLines
         } = this.props;
+
         const hasError = errors && (errors.length > 0);
+
+        const defaultSize = blockSize
+            ? [FormStyles.multilineTextField, { height: blockSize }]
+            : FormStyles.multilineTextField;
+
+        const typeOfStyle = multiline ? defaultSize : FormStyles.textField;
+        const fieldStyle = hasError ? [typeOfStyle, { borderColor: Colors.errorMessage }] : typeOfStyle;
+        const labelStyle = hasError ? [FormStyles.label, { color: Colors.errorMessage }] : FormStyles.label;
+
         return (
             <View style={{ marginBottom: 20 }}>
-                <Text>
+                <Text style={labelStyle}>
                     { label }
                 </Text>
                 <TextInput
                     value={value}
+                    style={fieldStyle}
                     multiline={multiline}
                     autoCorrect={false}
                     autoCapitalize='none'
                     onChangeText={onChange}
-                    placeholder={placeholder || ''}
                     numberOfLines={numberOfLines}
-                    secureTextEntry={secureTextEntry}
                     underlineColorAndroid='transparent'
                 />
                 {hasError &&
-                <Text>
+                <Text style={{...Fonts.ordinaryText, color: Colors.errorMessage}}>
                     { errors.join(',') }
                 </Text>
                 }
