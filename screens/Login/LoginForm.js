@@ -54,6 +54,7 @@ export default class LoginForm extends React.Component {
                     form.data,
                     form.onChangeForm,
                     form.getFieldErrorMessages('password'),
+                    false,
                     true
                 )}
                 <FormErrorMessage form={form}/>

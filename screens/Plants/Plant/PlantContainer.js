@@ -5,7 +5,6 @@ import { withProps } from 'recompose';
 import withQuery from '../../../connectors/withQuery';
 import PLANT_QUERY from '../../../graphQL/queries/PLANT_QUERY';
 import PLANT_CACHED_QUERY from '../../../graphQL/queries/PLANT_CACHED_QUERY';
-import CURRENT_USER_QUERY from "../../../graphQL/queries/CURRENT_USER_QUERY";
 
 export default R.compose(
     withQuery(

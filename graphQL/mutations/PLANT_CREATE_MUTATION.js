@@ -2,8 +2,8 @@ import gql from 'graphql-tag';
 import PLANT_FRAGMENT from '../fragments/PLANT_FRAGMENT';
 
 export default gql`
-    mutation createPlant($plant: PLANT_INPUT!) {
-        createPlant(plant: $plant) {
+    mutation plantCreate($plant: PLANT_INPUT!) {
+        plantCreate(plant: $plant) {
             ...plantDetails
         }
     }

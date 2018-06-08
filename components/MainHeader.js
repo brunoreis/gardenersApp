@@ -30,7 +30,7 @@ export const headerCustomTitle = (component) => {
 }
 
 export const headerRightIcon = ({ onPress, disabled = false, name, color = Colors.white, isButtonText = false }) => {
-    const textStyle = [styles.rightIcon, { ...Fonts.createdBy, color, fontSize: 11, width: 32 }];
+    const textStyle = [styles.rightIcon, { ...Fonts.createdBy, color, fontSize: 11, width: 35, alignItems: 'flex-end' }];
     return (
         <TouchableOpacity onPress={() => onPress()} disabled={disabled}>
             { isButtonText
@@ -50,7 +50,7 @@ export const headerRightIcon = ({ onPress, disabled = false, name, color = Color
 }
 
 export const headerLeftIcon = ({ onPress, name, color = Colors.azure, isButtonText = false }) => {
-    const textStyle = [styles.leftIcon, { ...Fonts.createdBy, color, fontSize: 11, width: 32 }];
+    const textStyle = [styles.leftIcon, { ...Fonts.createdBy, color, fontSize: 11, width: 35, alignItems: 'flex-end' }];
     return (
         <TouchableOpacity onPress={() => onPress()}>
             { isButtonText

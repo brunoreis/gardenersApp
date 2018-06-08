@@ -5,8 +5,8 @@ import {
 } from 'react-navigation';
 import Colors from '../constants/Colors';
 import { Icon } from 'react-native-elements';
-import PlantsScreen from "../screens/Plants/PlantsScreen/PlantsScreen";
-import PlantScreen from "../screens/Plants/PlantScreen/PlantScreen";
+import PlantsScreen from "../screens/Plants/Plants/PlantsScreen";
+import PlantScreen from "../screens/Plants/Plant/PlantScreen";
 import SettingsScreen from "../screens/SettingsScreen";
 import LinksScreen from "../screens/LinksScreen";
 
@@ -29,10 +29,10 @@ const tabNav = createBottomTabNavigator({
             screen: createStackNavigator(
                 {
                     Plants: {
-                        screen: PlantsScreen,
+                        screen: PlantsScreen
                     },
                     Plant: {
-                        screen: PlantScreen,
+                        screen: PlantScreen
                     }
                 }
             ),

@@ -15,11 +15,11 @@ export default class CustomTextField extends React.Component {
             label,
             errors,
             onChange,
-            multiline,
             blockSize,
             isPassword,
             placeholder,
-            numberOfLines
+            isMultiline,
+            numberOfLines,
         } = this.props;
 
         const hasError = errors && (errors.length > 0);
@@ -28,7 +28,7 @@ export default class CustomTextField extends React.Component {
             ? [FormStyles.multilineTextField, { height: blockSize }]
             : FormStyles.multilineTextField;
 
-        const typeOfStyle = multiline ? defaultSize : FormStyles.textField;
+        const typeOfStyle = isMultiline ? defaultSize : FormStyles.textField;
         const fieldStyle = hasError ? [typeOfStyle, { borderColor: Colors.errorMessage }] : typeOfStyle;
         const labelStyle = hasError ? [FormStyles.label, { color: Colors.errorMessage }] : FormStyles.label;
 
@@ -40,7 +40,7 @@ export default class CustomTextField extends React.Component {
                 <TextInput
                     value={value}
                     style={fieldStyle}
-                    multiline={multiline}
+                    multiline={isMultiline}
                     autoCorrect={false}
                     autoCapitalize='none'
                     placeholder={placeholder}
