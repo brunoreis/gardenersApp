@@ -2,6 +2,7 @@ import React from 'react';
 import {
     View,
     Text,
+    Image,
     ScrollView,
     TouchableOpacity,
     ActivityIndicator
@@ -19,6 +20,16 @@ class PlantForm extends React.Component {
         this.state = {
             submitting: false
         }
+    }
+
+    isValidURL = (str) => {
+        const pattern = new RegExp('^(https?:\\/\\/)?'+ // protocol
+            '((([a-z\\d]([a-z\\d-]*[a-z\\d])*)\\.?)+[a-z]{2,}|'+ // domain name
+            '((\\d{1,3}\\.){3}\\d{1,3}))'+ // OR ip (v4) address
+            '(\\:\\d+)?(\\/[-a-z\\d%_.~+]*)*'+ // port and path
+            '(\\?[;&a-z\\d%_.~+=-]*)?'+ // query string
+            '(\\#[-a-z\\d_]*)?$','i'); // fragment locator
+        return pattern.test(str);
     }
 
     submitForm = () => {
@@ -84,17 +95,27 @@ class PlantForm extends React.Component {
             form,
             mutationName,
         } = this.props;
-        console.log('props', this.props);
         return (
             <View style={{ padding: 20, paddingBottom: 0 }}>
-                {TextField(
-                    'image',
-                    'URL da imagem',
-                    'Digite a URL da imagem',
-                    form.data,
-                    form.onChangeForm,
-                    form.getFieldErrorMessages('image')
-                )}
+                <View style={{ flexDirection: 'row', alignItems: 'center' }}>
+                    <View style={{ flex: 1 }}>
+                        {TextField(
+                            'image',
+                            'URL da imagem',
+                            'Digite a URL da imagem',
+                            form.data,
+                            form.onChangeForm,
+                            form.getFieldErrorMessages('image')
+                        )}
+                    </View>
+                    {
+                        this.isValidURL(form.data.image) &&
+                        <Image
+                            source={{ uri: form.data.image }}
+                            style={{ flex: 0, width: 40, height: 40, marginLeft: 8, borderRadius: 5 }}
+                        />
+                    }
+                </View>
                 {TextField(
                     'name',
                     'Nome*',
@@ -139,7 +160,7 @@ class PlantForm extends React.Component {
                                 <ActivityIndicator
                                     size='large'
                                     color={Colors.red}
-                                    style={{ marginBottom: 23 }}
+                                    style={{ marginTop: -10, marginBottom: 52 }}
                                 />
                                 :
                                 <View>
