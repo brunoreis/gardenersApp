@@ -5,10 +5,10 @@ import {
 } from 'react-navigation';
 import Colors from '../constants/Colors';
 import { Icon } from 'react-native-elements';
-import PlantsScreen from "../screens/Plants/Plants/PlantsScreen";
-import PlantScreen from "../screens/Plants/Plant/PlantScreen";
-import SettingsScreen from "../screens/SettingsScreen";
-import LinksScreen from "../screens/LinksScreen";
+import PlantsScreen from '../screens/Plants/Plants/PlantsScreen';
+import PlantScreen from '../screens/Plants/Plant/PlantScreen';
+import SettingsScreen from '../screens/SettingsScreen';
+import LinksScreen from '../screens/LinksScreen';
 
 const initialRouteName = 'Plants';
 const renderIcon = (routeName, iconName, focused) => {
@@ -35,7 +35,7 @@ const tabNav = createBottomTabNavigator({
                         screen: PlantScreen
                     }
                 }
-            ),
+            )
         },
         Links: {
             screen: createStackNavigator(

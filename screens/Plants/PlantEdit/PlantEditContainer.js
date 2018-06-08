@@ -7,6 +7,7 @@ import withMutation from '../../../connectors/withMutation';
 import PLANT_EDIT_MUTATION from '../../../graphQL/mutations/PLANT_EDIT_MUTATION';
 import withQuery from "../../../connectors/withQuery";
 import PLANT_CACHED_QUERY from "../../../graphQL/queries/PLANT_CACHED_QUERY";
+import PLANT_DELETE_MUTATION from "../../../graphQL/mutations/PLANT_DELETE_MUTATION";
 
 export default R.compose(
     withNavigation,
@@ -21,6 +22,10 @@ export default R.compose(
     withMutation(
         PLANT_EDIT_MUTATION,
         { name: 'plantEdit' }
+    ),
+    withMutation(
+        PLANT_DELETE_MUTATION,
+        { name: 'plantDelete' }
     ),
     withForm({
         defaultData: (props) => ({
