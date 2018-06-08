@@ -7,6 +7,7 @@ export default gql`
         name
         image
         username
+        created_at
         description
     }
 `;

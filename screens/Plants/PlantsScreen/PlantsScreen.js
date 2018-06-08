@@ -2,15 +2,18 @@ import React from 'react';
 import { View } from 'react-native';
 import PlantListContainer from './PlantListContainer';
 import {
-    headerLeftIcon,
+    headerLeftIcon, headerRightIcon,
     headerStyle,
     headerTitle
 } from '../../../components/MainHeader';
+import FloatingButton from "../../../components/FloatingButton";
 
 export default class PlantsScreen extends React.Component {
     render() {
         return (
-            <PlantListContainer/>
+            <View style={{ flex: 1 }}>
+                <PlantListContainer/>
+            </View>
         )
     }
 }
@@ -18,7 +21,10 @@ export default class PlantsScreen extends React.Component {
 PlantsScreen.navigationOptions = ({ navigation }) => ({
     headerStyle,
     headerTitle: headerTitle('Plantas'),
-    headerRight: <View/>,
+    headerRight: headerRightIcon({
+        name: 'md-add',
+        onPress: () => navigation.navigate('PlantCreate')
+    }),
     headerLeft: headerLeftIcon({
         name: 'ios-menu',
         onPress: () =>  navigation.openDrawer()

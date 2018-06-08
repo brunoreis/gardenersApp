@@ -7,6 +7,7 @@ export default  gql`
         id
         name
         image
+        created_at
         edible_parts
         planting_tips
         scientific_name

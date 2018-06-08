@@ -95,7 +95,8 @@ const styles = StyleSheet.create({
     logout: {
         borderTopWidth: 0.5,
         borderBottomWidth: 0.5,
-        borderColor: Colors.lightGray,
+        borderTopColor: Colors.lightGray,
+        borderBottomColor: Colors.lightGray,
         marginLeft: -18,
         paddingLeft: 28
     }

@@ -14,6 +14,7 @@ export default R.compose(
         searchPlaceholder: 'Buscar'
     }),
     withQuery(
+        PLANTS_SEARCH_QUERY,
         (props) => ({
             variables: {
                 first: 15,
@@ -27,8 +28,7 @@ export default R.compose(
             },
             extraProps:{
                 emptyMessage: props.emptyMessage ? props.emptyMessage : "Não há plantas cadastradas. 😢"
-            },
-            query: PLANTS_SEARCH_QUERY
+            }
         })
     ),
     withProps(

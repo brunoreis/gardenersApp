@@ -36,19 +36,25 @@ class PlantItem extends React.Component {
                     }
                 />
                 <View style={{ flex: 1, marginRight: 5 }}>
-                    <Text numberOfLines={1} style={{ ...Fonts.itemTitle }}>
+                    <Text numberOfLines={1} style={{ ...Fonts.createdBy }}>
                         { plant.name.toUpperCase() }
                     </Text>
                     <Text numberOfLines={1} style={{ ...Fonts.ordinaryText }}>
                         { plant.edible_parts }
                     </Text>
                 </View>
-                <View style={{ flex: 0, width: 80, flexDirection: 'row' }}>
+                <View style={{
+                    flex: 0,
+                    width: 70,
+                    flexDirection: 'row',
+                    alignItems: 'flex-start',
+                    justifyContent: 'flex-end'
+                }}>
                     <AmountIcon
                         mainIcon={{ name: 'ios-nutrition', type: 'ionicon' }}
                         amount={0}
                     />
-                    <View style={{ marginRight: 10 }} />
+                    <View style={{ marginRight: 7 }} />
                     <AmountIcon
                         mainIcon={{ name: 'ios-flower', type: 'ionicon' }}
                         amount={0}
@@ -61,7 +67,8 @@ class PlantItem extends React.Component {
 
 const styles = StyleSheet.create({
     container: {
-        padding: 10,
+        paddingVertical: 7,
+        paddingHorizontal: 10,
         borderWidth: 1,
         flexDirection: 'row',
         borderColor: Colors.veryLightGray

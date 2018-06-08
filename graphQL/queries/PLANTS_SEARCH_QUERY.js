@@ -3,9 +3,9 @@ import PLANT_FRAGMENT from '../fragments/PLANT_FRAGMENT';
 
 export default gql`
     query plantsSearch(
-    $first: Int!,
-    $after: String,
-    $filter: PlantFilter
+        $first: Int!,
+        $after: String,
+        $filter: PlantFilter
     ) {
         plants(
             first: $first,

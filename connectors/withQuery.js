@@ -1,42 +1,38 @@
 import React from 'react';
+import hoistNonReactStatics from 'hoist-non-react-statics';
 import { Query } from 'react-apollo';
 import { ActivityIndicator, View } from 'react-native';
-import hoistNonReactStatics from 'hoist-non-react-statics';
 import QueryErrorMessage from '../components/Errors/QueryErrorMessage';
 
-export default (getConfigs) => (WrappedComponent) => {
+export default (query, getConfigs = {}) => (WrappedComponent) => {
     class newClass extends React.Component {
         render() {
             const configValues = (typeof getConfigs === 'function') ? getConfigs(this.props) : getConfigs;
-            const extraProps = configValues.extraProps ? configValues.extraProps : {};
-
+            const extraProps = configValues.extraProps ? configValues.extraProps : {}
+            const fp = configValues.fetchPolicy ? configValues.fetchPolicy : "network-only";
+            const queryDataNm = configValues.queryDataName ? configValues.queryDataName : "queryData";
             return (
                 <Query
-                    query={configValues.query}
+                    query={query}
                     variables={configValues.variables}
-                    fetchPolicy="network-only"
+                    fetchPolicy={fp}
                     notifyOnNetworkStatusChange
                 >
                     {(queryData) => {
                         const { error } = queryData;
-                        const firstTimeLoading = queryData.networkStatus === 1;
 
-
-                        if (firstTimeLoading) {
-                            return <ActivityIndicator size='large' style={{ marginTop: 15 }}/>;
-                        }
                         if (error) {
                             return <QueryErrorMessage error={error}/>;
+                        } else if (!configValues.bypassActivityIndicator && Object.keys(queryData.data).length === 0 ) {
+                            return <ActivityIndicator size='large' style={{ marginTop: 15 }}/>;
                         }
 
+                        extraProps[queryDataNm] = queryData;
                         return (
-                            <View style={{ flex: 1 }}>
-                                <WrappedComponent
-                                    {...this.props}
-                                    queryData = {queryData}
-                                    {...extraProps}
-                                />
-                            </View>
+                            <WrappedComponent
+                                {...this.props}
+                                {...extraProps}
+                            />
                         )
 
                     }}

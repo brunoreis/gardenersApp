@@ -41,21 +41,22 @@ export default class LoginForm extends React.Component {
                 </Text>
                 {TextField(
                     'username',
-                    'Email*',
                     'Email',
+                    'Digite seu e-mail',
                     form.data,
                     form.onChangeForm,
                     form.getFieldErrorMessages('username')
                 )}
                 {TextField(
                     'password',
-                    'Senha*',
                     'Senha',
+                    'Digite sua senha',
                     form.data,
                     form.onChangeForm,
                     form.getFieldErrorMessages('password'),
                     true
                 )}
+                <FormErrorMessage form={form}/>
                 {
                     submit.running ?
                         <ActivityIndicator size='large' style={{ marginBottom: 33 }} color={Colors.lightBlue} />
@@ -66,7 +67,6 @@ export default class LoginForm extends React.Component {
                             </Text>
                         </TouchableOpacity>
                 }
-                <FormErrorMessage form={form}/>
             </View>
         )
     }

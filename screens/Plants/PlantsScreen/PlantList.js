@@ -3,7 +3,6 @@ import {
     View,
     Text,
     FlatList,
-    StyleSheet,
     TouchableOpacity
 } from 'react-native';
 import PlantItem from './PlantItem'
@@ -17,7 +16,6 @@ class PlantList extends React.Component {
         callIfUserComesBackToThisRoute(
             this.props,
             () => {
-                console.log('queryData', queryData);
                 queryData.refetch()
             }
         )
@@ -72,7 +70,11 @@ class PlantList extends React.Component {
             <TouchableOpacity
                 key={item.node.id}
                 style={{ backgroundColor: Colors.white }}
-                onPress={() => navigation.navigate('Plant', { plantId: item.node.id })}>
+                onPress={() => navigation.navigate('Plant', {
+                    plantId: item.node.id,
+                    plantName: item.node.name,
+                    plantCreatedById: item.node.createdBy.id
+                })}>
                 <PlantItem plant={item.node}/>
             </TouchableOpacity>
         )

@@ -7,6 +7,7 @@ import {
     StyleSheet,
     TouchableOpacity
 } from 'react-native';
+import debounce from 'debounce';
 import { Icon } from 'react-native-elements';
 import Colors from '../../constants/Colors';
 import Fonts from "../../constants/Fonts";
@@ -16,13 +17,14 @@ export default class SearchBar extends React.Component {
         super(props);
         this.state = {
             text: '',
-            active: false
+            active: false,
         };
+        this.debounceChange = debounce(this.props.onSearch, 300);
     }
 
     onChange = (value) => {
-        this.props.onSearch(value);
         this.setState( { text: value });
+        this.debounceChange(value);
     }
 
     render() {
@@ -86,10 +88,10 @@ export default class SearchBar extends React.Component {
                                 onCancel();
                             }
                         }
-                        style={{ flex: 0, width: 43, marginLeft: 8 }}
+                        style={{ flex: 0, width: 55, marginLeft: 8 }}
                     >
-                        <Text style={{ ...Fonts.ordinaryTextClear, color: Colors.mediumGray }}>
-                            Cancel
+                        <Text style={{ ...Fonts.ordinaryTextClear, color: Colors.primaryBlue, padding: 5 }}>
+                            Cancelar
                         </Text>
                     </TouchableOpacity>
 

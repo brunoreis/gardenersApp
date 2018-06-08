@@ -19,11 +19,13 @@ export default {
     },
     titleActive: {
         fontSize: 14,
+        textAlign: 'center',
         fontFamily: 'Open Sans Bold',
         color: Colors.mediumGray
     },
     titleInactive: {
         fontSize: 14,
+        textAlign: 'center',
         fontFamily: 'Open Sans Regular',
         color: Colors.mediumGray
     },
@@ -55,7 +57,7 @@ export default {
     amountOfObjects: {
         fontSize: 9,
         fontFamily: 'Open Sans Regular',
-        color: Colors.white
+        color: Colors.mediumGray
     },
     createdBy: {
         fontSize: 13,

@@ -12,9 +12,8 @@ import { SafeAreaView } from 'react-navigation';
 import CURRENT_USER_QUERY from '../graphQL/queries/CURRENT_USER_QUERY';
 import QueryErrorMessage from '../components/Errors/QueryErrorMessage';
 
-const userDataPollInterval = 5000;
 export default ({ navigation }) => (
-    <Query query={CURRENT_USER_QUERY} pollInterval={userDataPollInterval}>
+    <Query query={CURRENT_USER_QUERY}>
         {({ loading, error, data, client }) => {
             if (loading) {
                 return <ActivityIndicator style={{ marginTop: 15 }}/>;

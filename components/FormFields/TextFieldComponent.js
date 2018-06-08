@@ -17,6 +17,8 @@ export default class CustomTextField extends React.Component {
             onChange,
             multiline,
             blockSize,
+            isPassword,
+            placeholder,
             numberOfLines
         } = this.props;
 
@@ -41,13 +43,15 @@ export default class CustomTextField extends React.Component {
                     multiline={multiline}
                     autoCorrect={false}
                     autoCapitalize='none'
+                    placeholder={placeholder}
                     onChangeText={onChange}
                     numberOfLines={numberOfLines}
+                    secureTextEntry={isPassword}
                     underlineColorAndroid='transparent'
                 />
                 {hasError &&
                 <Text style={{...Fonts.ordinaryText, color: Colors.errorMessage}}>
-                    { errors.join(',') }
+                    { errors.error.join(',') }
                 </Text>
                 }
             </View>
