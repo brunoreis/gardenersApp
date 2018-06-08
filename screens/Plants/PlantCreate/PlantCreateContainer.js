@@ -1,6 +1,6 @@
 import R from 'ramda';
 import { withProps } from 'recompose';
-import PlantCreateForm from './PlantCreateForm';
+import PlantForm from '../PlantForm';
 import withForm from '../../../connectors/withForm';
 import withMutation from '../../../connectors/withMutation';
 import PLANT_CREATE_MUTATION from '../../../graphQL/mutations/PLANT_CREATE_MUTATION';
@@ -43,4 +43,4 @@ export default R.compose(
             })
         }
     })
-)(PlantCreateForm);
+)(PlantForm);

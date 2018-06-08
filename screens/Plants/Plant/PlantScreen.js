@@ -32,13 +32,15 @@ PlantScreen.navigationOptions = ({ navigation }) => {
     if (currentUserHasCreated === undefined) currentUserHasCreated = false;
     return ({
         headerStyle,
-        headerTitle: headerTitle(params.plantName),
+        headerTitle: headerTitle(params.plantName.toUpperCase()),
         headerLeft: renderBackButton(navigation),
         headerRight: currentUserHasCreated
             ? headerRightIcon({
                 name: 'Editar',
                 isButtonText: true,
-                onPress: () => navigation.navigate('PlantEdit', { plantId: navigation.state.params.plantId })
+                onPress: () => navigation.navigate('PlantEdit', {
+                    plantId: navigation.state.params.plantId
+                })
             })
             : <View style={{ marginLeft: 10 }} />
     });

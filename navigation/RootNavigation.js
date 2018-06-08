@@ -2,8 +2,9 @@ import React from 'react';
 import { View } from 'react-native';
 import { createSwitchNavigator } from 'react-navigation';
 import LoginScreen from '../screens/Login/LoginScreen';
-import MainDrawerNavigator from "./MainDrawerNavigator";
-import PlantCreateScreen from "../screens/Plants/PlantCreate/PlantCreateScreen";
+import MainDrawerNavigator from './MainDrawerNavigator';
+import PlantCreateScreen from '../screens/Plants/PlantCreate/PlantCreateScreen';
+import PlantEditScreen from '../screens/Plants/PlantEdit/PlantEditScreen';
 
 const RootSwitchNavigator = createSwitchNavigator(
     {
@@ -15,6 +16,9 @@ const RootSwitchNavigator = createSwitchNavigator(
         },
         PlantCreate: {
             screen: PlantCreateScreen
+        },
+        PlantEdit: {
+            screen: PlantEditScreen
         }
     }
 );

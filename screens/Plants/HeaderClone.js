@@ -38,7 +38,7 @@ class HeaderClone extends React.Component {
                     isSubmiting ?
                         <ActivityIndicator
                             color={Colors.white}
-                            style={{ marginLeft: 20, marginRight: 16, }} />
+                            style={{ marginLeft: 23, marginRight: 16, }} />
                         :
                         <TouchableOpacity
                             disabled={saveDisabled}

@@ -4,12 +4,12 @@ import {
     Text,
     ScrollView
 } from 'react-native';
-import HeaderClone from '../HeaderClone';
-import Fonts from '../../../constants/Fonts';
+import HeaderClone from './HeaderClone';
+import Fonts from '../../constants/Fonts';
 import { withNavigation } from 'react-navigation';
-import TextField from '../../../components/FormFields/TextField';
+import TextField from '../../components/FormFields/TextField';
 
-class PlantCreateForm extends React.Component {
+class PlantForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -114,4 +114,4 @@ class PlantCreateForm extends React.Component {
     }
 }
 
-export default withNavigation(PlantCreateForm);
+export default withNavigation(PlantForm);
