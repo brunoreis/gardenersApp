@@ -6,7 +6,7 @@ import {
 import { setToken } from '../../apollo/headers';
 import { client } from '../../apollo/ApolloWrap';
 import authKeep from '../../lib/authKeep';
-import LoginFormContainer from './LoginFormContainer';
+import LoginContainer from './LoginContainer';
 import CURRENT_USER_QUERY from '../../graphQL/queries/CURRENT_USER_QUERY';
 
 export default class LoginScreen extends React.Component {
@@ -58,7 +58,7 @@ export default class LoginScreen extends React.Component {
         }
         return (
             <View style={{ flex: 1 }}>
-                <LoginFormContainer
+                <LoginContainer
                     navigateToMain={()=> navigation.navigate('Main')}
                 />
             </View>

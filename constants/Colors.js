@@ -9,5 +9,6 @@ export default {
     primaryBlue: '#3038AD',
     secondaryBlue: '#2F3DAD',
     tertiaryBlue: '#1B2751',
+    mediumGreen: '#2CC09F',
     red: '#A52A2A'
 }

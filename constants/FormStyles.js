@@ -50,6 +50,13 @@ export default {
         borderRadius: 5,
         backgroundColor: Colors.secondaryBlue
     },
+    addButton: {
+        padding: 10,
+        borderRadius: 5,
+        marginBottom: 20,
+        alignItems: "center",
+        backgroundColor: Colors.mediumGreen
+    },
     deleteButton: {
         padding: 10,
         borderRadius: 5,

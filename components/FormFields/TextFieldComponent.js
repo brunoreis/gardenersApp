@@ -29,8 +29,8 @@ export default class CustomTextField extends React.Component {
             : FormStyles.multilineTextField;
 
         const typeOfStyle = isMultiline ? defaultSize : FormStyles.textField;
-        const fieldStyle = hasError ? [typeOfStyle, { borderColor: Colors.errorMessage }] : typeOfStyle;
-        const labelStyle = hasError ? [FormStyles.label, { color: Colors.errorMessage }] : FormStyles.label;
+        const fieldStyle = hasError ? [typeOfStyle, { borderColor: Colors.red }] : typeOfStyle;
+        const labelStyle = hasError ? [FormStyles.label, { color: Colors.red }] : FormStyles.label;
 
         return (
             <View style={{ marginBottom: 20 }}>
@@ -50,8 +50,8 @@ export default class CustomTextField extends React.Component {
                     underlineColorAndroid='transparent'
                 />
                 {hasError &&
-                <Text style={{...Fonts.ordinaryText, color: Colors.errorMessage}}>
-                    { errors.error.join(',') }
+                <Text style={{...Fonts.errorMessage }}>
+                    { errors }
                 </Text>
                 }
             </View>

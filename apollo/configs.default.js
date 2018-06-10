@@ -1,7 +1,7 @@
 const env = 'DEV';
 
 const configs = {
-    'graphqlEndpoint': 'PRODUCTION_URL'
+    'graphqlEndpoint': 'https://jardineiros.herokuapp.com/graphql'
 };
 
 let extraConfigs = null;

@@ -7,8 +7,8 @@ import {
     TouchableOpacity
 } from 'react-native';
 import { Icon } from 'react-native-elements';
-import Colors from "../../constants/Colors";
-import Fonts from "../../constants/Fonts";
+import Colors from "../constants/Colors";
+import Fonts from "../constants/Fonts";
 
 class HeaderClone extends React.Component {
     render() {

@@ -13,12 +13,6 @@ const RootSwitchNavigator = createSwitchNavigator(
         },
         Main: {
             screen: MainDrawerNavigator,
-        },
-        PlantCreate: {
-            screen: PlantCreateScreen
-        },
-        PlantEdit: {
-            screen: PlantEditScreen
         }
     }
 );

@@ -40,7 +40,7 @@ export default class Drawer extends React.Component {
                     { current_user.username }
                 </Text>
                 <Text style={{ ...Fonts.ordinaryText, color: Colors.darkGray,  marginVertical: 15 }}>
-                    @{ current_user.description }
+                    { current_user.description }
                 </Text>
             </View>
         )

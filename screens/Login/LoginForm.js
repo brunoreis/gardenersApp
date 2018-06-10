@@ -3,16 +3,18 @@ import {
     View,
     Text,
     Image,
+    StyleSheet,
     TouchableOpacity,
     ActivityIndicator
 } from 'react-native';
+import Fonts from '../../constants/Fonts';
+import Colors from '../../constants/Colors';
+import FormStyles from '../../constants/FormStyles';
+import { withNavigation } from 'react-navigation';
 import TextField from '../../components/FormFields/TextField';
 import FormErrorMessage from '../../components/Errors/FormErrorMessage';
-import Colors from "../../constants/Colors";
-import Fonts from "../../constants/Fonts";
-import FormStyles from "../../constants/FormStyles";
 
-export default class LoginForm extends React.Component {
+class LoginForm extends React.Component {
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: '#4FAF2F' }}>
@@ -32,7 +34,11 @@ export default class LoginForm extends React.Component {
     }
 
     renderFields() {
-        const { form } = this.props;
+        const {
+            form,
+            navigation,
+            signinLoading
+        } = this.props;
         const { submit } = form;
         return (
             <View style={{ padding: 20, paddingBottom: 0, backgroundColor: Colors.white }}>
@@ -58,9 +64,14 @@ export default class LoginForm extends React.Component {
                     true
                 )}
                 <FormErrorMessage form={form}/>
+                <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                    <Text style={styles.signup}>
+                        Não tem conta? Faça a sua.
+                    </Text>
+                </TouchableOpacity>
                 {
-                    submit.running ?
-                        <ActivityIndicator size='large' style={{ marginBottom: 33 }} color={Colors.lightBlue} />
+                    signinLoading ?
+                        <ActivityIndicator size='large' style={{ marginBottom: 23 }} color={Colors.lightBlue} />
                         :
                         <TouchableOpacity style={FormStyles.addButton} onPress={ () =>  submit.run() }>
                             <Text style={{ ...Fonts.formButton }}>
@@ -72,3 +83,14 @@ export default class LoginForm extends React.Component {
         )
     }
 }
+
+export default withNavigation(LoginForm);
+
+const styles = StyleSheet.create({
+    signup: {
+        ...Fonts.ordinaryText,
+        color: Colors.mediumGreen,
+        marginBottom: 10,
+        textAlign: 'center'
+    }
+})

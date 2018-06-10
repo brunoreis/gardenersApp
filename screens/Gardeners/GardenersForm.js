@@ -14,11 +14,12 @@ import TextField from '../../components/FormFields/TextField';
 import FormStyles from "../../constants/FormStyles";
 import Colors from "../../constants/Colors";
 
-class PlantForm extends React.Component {
+class GardenerForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            submitting: false
+            submitting: false,
+            errors: null
         }
     }
 
@@ -33,34 +34,28 @@ class PlantForm extends React.Component {
     }
 
     submitForm = () => {
-        const {
-            form,
-            navigation,
-            mutationName
-        } = this.props;
+        const { form } = this.props;
 
         this.setState({ submitting: true });
         form.submit.run().then((result) => {
-            navigation.navigate('Plant', {
-                plantId: result.data[mutationName].id,
-                plantName: result.data[mutationName].name,
-                plantCreatedById: result.data[mutationName].createdBy.id
+            this.signInUser(result.data.gardenerCreate);
+        }).catch((errors) => {
+            const responseErrors = errors.graphQLErrors[0].message.split(',');
+            this.setState({
+                errors: responseErrors,
+                submitting: false
             });
         })
     }
 
-    deletePlant = () => {
-        const {
-            navigation,
-            plantDeleteMutate
-        } = this.props;
-        plantDeleteMutate({
+    signInUser = (gardener) => {
+        const { signinMutate } = this.props;
+        signinMutate({
             variables: {
-                id: navigation.state.params.plantId,
+                username: gardener.username,
+                password: gardener.password
             }
-        }).then(() => {
-            navigation.navigate('Plants');
-        })
+        });
     }
 
     render() {
@@ -80,7 +75,12 @@ class PlantForm extends React.Component {
                     isSubmiting={submitting}
                     onSavePress={() =>  this.submitForm()}
                     onBackPress={() => navigation.navigate(backTo, args)}
-                    saveDisabled={(data.name === '' || data.edible_parts === '' || data.planting_tips === '')}
+                    saveDisabled={(
+                        data.name === '' ||
+                        data.username === '' ||
+                        data.password === '' ||
+                        data.password_confirmation === ''
+                    )}
                 />
                 <ScrollView>
                     { this.renderFields() }
@@ -89,12 +89,17 @@ class PlantForm extends React.Component {
         )
     }
 
+    hasError = (contains) => {
+        const { errors } = this.state;
+        return errors && errors.filter(error => error.indexOf(contains) !== -1)[0]
+    }
 
     renderFields() {
         const {
             form,
             mutationName,
         } = this.props;
+        const { errors } = this.state;
         return (
             <View style={{ padding: 20, paddingBottom: 0 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>
@@ -105,7 +110,7 @@ class PlantForm extends React.Component {
                             'Digite a URL da imagem',
                             form.data,
                             form.onChangeForm,
-                            form.getFieldErrorMessages('image')
+                            this.hasError('imagem')
                         )}
                     </View>
                     {
@@ -119,44 +124,51 @@ class PlantForm extends React.Component {
                 {TextField(
                     'name',
                     'Nome*',
-                    'Digite o nome da planta',
+                    'Digite seu nome',
                     form.data,
                     form.onChangeForm,
-                    form.getFieldErrorMessages('name')
+                    this.hasError('nome')
                 )}
                 {TextField(
-                    'scientific_name',
-                    'Nome cientifico',
-                    'Digite o nome científico da planta',
+                    'description',
+                    'Descrição',
+                    'Digite uma breve descrição sobre você',
                     form.data,
                     form.onChangeForm,
-                    form.getFieldErrorMessages('scientific_name')
-                )}
-                {TextField(
-                    'edible_parts',
-                    'Partes comestíveis*',
-                    'Digite as partes comestíveis da planta',
-                    form.data,
-                    form.onChangeForm,
-                    form.getFieldErrorMessages('edible_parts')
-                )}
-                {TextField(
-                    'planting_tips',
-                    'Dicas de Plantio*',
-                    'Digite algumas dicas de plantio da planta',
-                    form.data,
-                    form.onChangeForm,
-                    form.getFieldErrorMessages('planting_tips'),
+                    this.hasError('descrição'),
                     true
                 )}
-                <Text style={{ ...Fonts.errorMessage, marginTop: -10, marginBottom: 10 }}>
-                    { form.generalErrorMessage }
-                </Text>
+                {TextField(
+                    'username',
+                    'E-mail*',
+                    'Digite seu e-mail',
+                    form.data,
+                    form.onChangeForm,
+                    this.hasError('e-mail')
+                )}
+                {TextField(
+                    'password',
+                    'Senha*',
+                    'Digite sua senha',
+                    form.data,
+                    form.onChangeForm,
+                    this.hasError('A senha'),
+                    false, true
+                )}
+                {TextField(
+                    'password_confirmation',
+                    'Confirmação de senha*',
+                    'Digite novamente a sua senha',
+                    form.data,
+                    form.onChangeForm,
+                    this.hasError('iguais'),
+                    false, true
+                )}
                 {
-                    mutationName === 'plantEdit' &&
+                    mutationName === 'gardenerEdit' &&
                     <View style={{ marginTop: -10 }}>
                         {
-                            this.props.plantDeleteLoading ?
+                            this.props.gardenerDeleteLoading ?
                                 <ActivityIndicator
                                     size='large'
                                     color={Colors.red}
@@ -166,9 +178,9 @@ class PlantForm extends React.Component {
                                 <View>
                                     <TouchableOpacity
                                         style={FormStyles.deleteButton}
-                                        onPress={() => this.deletePlant()}>
+                                        onPress={() => this.deleteGardener()}>
                                         <Text style={{ ...Fonts.errorMessage, color: Colors.white }}>
-                                            Excluir esta planta
+                                            Excluir minha conta
                                         </Text>
                                     </TouchableOpacity>
                                     <Text style={{ ...Fonts.errorMessage, marginTop: -15, marginBottom: 20 }}>
@@ -183,4 +195,4 @@ class PlantForm extends React.Component {
     }
 }
 
-export default withNavigation(PlantForm);
+export default withNavigation(GardenerForm);
