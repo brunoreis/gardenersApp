@@ -2,17 +2,21 @@ import React from 'react';
 import { createDrawerNavigator } from 'react-navigation';
 import MainTabNavigator from './MainTabNavigator';
 import DrawerContainer from './DrawerContainer';
-import SignUpScreen from '../screens/SignUp/SignUpScreen';
+import GardenersCreateScreen from '../screens/Gardeners/GardenersCreate/GardenersCreateScreen';
 import PlantCreateScreen from '../screens/Plants/PlantCreate/PlantCreateScreen';
 import PlantEditScreen from '../screens/Plants/PlantEdit/PlantEditScreen';
+import GardenersEditScreen from '../screens/Gardeners/GardenersEdit/GardenersEditScreen';
 
 export default MainDrawerNavigator = createDrawerNavigator(
     {
         TabNavigator: {
             screen: MainTabNavigator
         },
-        SignUp: {
-            screen: SignUpScreen
+        GardenersCreate: {
+            screen: GardenersCreateScreen
+        },
+        GardenersEdit: {
+            screen: GardenersEditScreen
         },
         PlantCreate: {
             screen: PlantCreateScreen

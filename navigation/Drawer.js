@@ -47,9 +47,23 @@ export default class Drawer extends React.Component {
     }
 
     renderButtons() {
-        const { logout } = this.props;
+        const { logout, navigation } = this.props;
         return (
             <View style={{ paddingLeft: 18 }}>
+                <TouchableOpacity
+                    onPress={() => navigation.navigate('GardenersEdit')}
+                    style={styles.button}>
+                    <Icon
+                        size={18}
+                        type='ionicon'
+                        name='ios-person-outline'
+                        color={Colors.mediumGray}
+                        iconStyle={{ marginRight: 15 }}
+                    />
+                    <Text style={styles.textTitle}>
+                        Minha conta
+                    </Text>
+                </TouchableOpacity>
                 <TouchableOpacity
                     onPress={() => logout()}
                     style={[ styles.button, styles.logout ]}>
@@ -88,7 +102,6 @@ const styles = StyleSheet.create({
     },
     button: {
         padding: 10,
-        marginBottom: 14,
         flexDirection: 'row',
         alignItems: 'center'
     },

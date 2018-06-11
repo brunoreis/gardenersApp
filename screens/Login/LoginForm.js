@@ -92,7 +92,7 @@ class LoginForm extends React.Component {
                             { error }
                         </Text>
                 }
-                <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
+                <TouchableOpacity onPress={() => navigation.navigate('GardenersCreate')}>
                     <Text style={styles.signup}>
                         Não tem conta? Faça a sua.
                     </Text>
