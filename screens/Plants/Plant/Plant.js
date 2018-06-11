@@ -34,6 +34,7 @@ class Plant extends React.Component {
         const aboutActive = index === 0 ? styles.activeTab : {};
         const newsFont = index === 1 ? { ...Fonts.titleActive } : { ...Fonts.titleInactive };
         const aboutFont = index === 0 ? { ...Fonts.titleActive } : { ...Fonts.titleInactive };
+
         if (loadingComplete) {
             return (
                 <View style={{ flex: 1 }}>

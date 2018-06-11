@@ -1,7 +1,6 @@
 import R from 'ramda';
 import { withProps } from 'recompose';
 import PlantForm from '../PlantForm';
-import { withNavigation } from 'react-navigation';
 import withForm from '../../../connectors/withForm';
 import withMutation from '../../../connectors/withMutation';
 import PLANT_EDIT_MUTATION from '../../../graphQL/mutations/PLANT_EDIT_MUTATION';
@@ -10,7 +9,6 @@ import PLANT_CACHED_QUERY from "../../../graphQL/queries/PLANT_CACHED_QUERY";
 import PLANT_DELETE_MUTATION from "../../../graphQL/mutations/PLANT_DELETE_MUTATION";
 
 export default R.compose(
-    withNavigation,
     withQuery(
         PLANT_CACHED_QUERY,
         (props) => ({

@@ -39,7 +39,7 @@ PlantScreen.navigationOptions = ({ navigation }) => {
                 name: 'Editar',
                 isButtonText: true,
                 onPress: () => navigation.navigate('PlantEdit', {
-                    plantId: navigation.state.params.plantId
+                    plantId: params.plantId
                 })
             })
             : <View style={{ marginLeft: 10 }} />

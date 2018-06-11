@@ -42,12 +42,12 @@ class PlantForm extends React.Component {
 
         this.setState({ submitting: true });
         form.submit.run().then((result) => {
+            form.reset();
             navigation.navigate('Plant', {
                 plantId: result.data[mutationName].id,
                 plantName: result.data[mutationName].name,
                 plantCreatedById: result.data[mutationName].createdBy.id
             });
-            form.reset();
         }).catch(errors => {
             const responseErrors = errors.graphQLErrors[0].message.split(',');
             this.setState({
