@@ -13,8 +13,31 @@ import FormStyles from '../../constants/FormStyles';
 import { withNavigation } from 'react-navigation';
 import TextField from '../../components/FormFields/TextField';
 import FormErrorMessage from '../../components/Errors/FormErrorMessage';
+import authKeep from "../../lib/authKeep";
+import {setToken} from "../../apollo/headers";
 
 class LoginForm extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            error: null
+        }
+    }
+    submitForm = () => {
+        const { form, navigateToMain } = this.props;
+        form.submit.run().then(result => {
+            const data = result.data.signin;
+            if (data.error && data.error.length > 0) {
+                this.setState({ error: data.error[0] });
+            } else {
+                const authToken = data.token;
+                setToken(authToken);
+                authKeep.keep(authToken);
+                navigateToMain();
+            }
+        })
+    }
+
     render() {
         return (
             <View style={{ flex: 1, backgroundColor: '#4FAF2F' }}>
@@ -39,7 +62,7 @@ class LoginForm extends React.Component {
             navigation,
             signinLoading
         } = this.props;
-        const { submit } = form;
+        const { error } = this.state;
         return (
             <View style={{ padding: 20, paddingBottom: 0, backgroundColor: Colors.white }}>
                 <Text style={{ ...Fonts.header, marginTop: -10, marginBottom: 20 }}>
@@ -63,7 +86,12 @@ class LoginForm extends React.Component {
                     false,
                     true
                 )}
-                <FormErrorMessage form={form}/>
+                {
+                    error !== null &&
+                        <Text style={{ ...Fonts.errorMessage, marginTop: -15, marginBottom: 10 }}>
+                            { error }
+                        </Text>
+                }
                 <TouchableOpacity onPress={() => navigation.navigate('SignUp')}>
                     <Text style={styles.signup}>
                         Não tem conta? Faça a sua.
@@ -73,11 +101,14 @@ class LoginForm extends React.Component {
                     signinLoading ?
                         <ActivityIndicator size='large' style={{ marginBottom: 23 }} color={Colors.lightBlue} />
                         :
-                        <TouchableOpacity style={FormStyles.addButton} onPress={ () =>  submit.run() }>
-                            <Text style={{ ...Fonts.formButton }}>
-                                Entrar
-                            </Text>
-                        </TouchableOpacity>
+                        (form.data.username !== '' && form.data.password !== '') ?
+                            <TouchableOpacity style={FormStyles.addButton} onPress={() =>  this.submitForm()}>
+                                <Text style={{ ...Fonts.formButton }}>
+                                    Entrar
+                                </Text>
+                            </TouchableOpacity>
+                            :
+                            <View/>
                 }
             </View>
         )

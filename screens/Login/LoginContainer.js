@@ -10,15 +10,7 @@ import withMutation from '../../connectors/withMutation';
 export default R.compose(
     withMutation(
         SIGN_IN_MUTATION,
-        (props) => ({
-            name:'signin',
-            update: (cache, data) => {
-                const authToken = data.data.signin.token;
-                setToken(authToken);
-                authKeep.keep(authToken);
-                props.navigateToMain()
-            }
-        })
+        { name:'signin' }
     ),
     withForm({
         defaultData: () => ({
@@ -28,14 +20,12 @@ export default R.compose(
         onSubmit: (props) => {
             return ({
                 ...props.signin,
-                run: (data) => {
-                    props.signinMutate({
-                        variables:{
-                            username: data.username,
-                            password: data.password
-                        }
-                    })
-                }
+                run: (data) => props.signinMutate({
+                    variables:{
+                        username: data.username,
+                        password: data.password
+                    }
+                })
             })
         }
     })

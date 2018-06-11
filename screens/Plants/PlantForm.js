@@ -18,6 +18,7 @@ class PlantForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
+            errors: null,
             submitting: false
         }
     }
@@ -46,7 +47,19 @@ class PlantForm extends React.Component {
                 plantName: result.data[mutationName].name,
                 plantCreatedById: result.data[mutationName].createdBy.id
             });
+            form.reset();
+        }).catch(errors => {
+            const responseErrors = errors.graphQLErrors[0].message.split(',');
+            this.setState({
+                submitting: false,
+                errors: responseErrors
+            });
         })
+    }
+
+    hasError = (contains) => {
+        const { errors } = this.state;
+        return errors && errors.filter(error => error.indexOf(contains) !== -1)[0]
     }
 
     deletePlant = () => {
@@ -105,7 +118,7 @@ class PlantForm extends React.Component {
                             'Digite a URL da imagem',
                             form.data,
                             form.onChangeForm,
-                            form.getFieldErrorMessages('image')
+                            this.hasError('imagem')
                         )}
                     </View>
                     {
@@ -122,7 +135,7 @@ class PlantForm extends React.Component {
                     'Digite o nome da planta',
                     form.data,
                     form.onChangeForm,
-                    form.getFieldErrorMessages('name')
+                    this.hasError('existe')
                 )}
                 {TextField(
                     'scientific_name',
@@ -130,7 +143,7 @@ class PlantForm extends React.Component {
                     'Digite o nome científico da planta',
                     form.data,
                     form.onChangeForm,
-                    form.getFieldErrorMessages('scientific_name')
+                    this.hasError('científico')
                 )}
                 {TextField(
                     'edible_parts',
@@ -138,7 +151,7 @@ class PlantForm extends React.Component {
                     'Digite as partes comestíveis da planta',
                     form.data,
                     form.onChangeForm,
-                    form.getFieldErrorMessages('edible_parts')
+                    this.hasError('comestíveis')
                 )}
                 {TextField(
                     'planting_tips',
@@ -146,12 +159,9 @@ class PlantForm extends React.Component {
                     'Digite algumas dicas de plantio da planta',
                     form.data,
                     form.onChangeForm,
-                    form.getFieldErrorMessages('planting_tips'),
+                    this.hasError('dicas'),
                     true
                 )}
-                <Text style={{ ...Fonts.errorMessage, marginTop: -10, marginBottom: 10 }}>
-                    { form.generalErrorMessage }
-                </Text>
                 {
                     mutationName === 'plantEdit' &&
                     <View style={{ marginTop: -10 }}>

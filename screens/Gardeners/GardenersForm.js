@@ -18,8 +18,8 @@ class GardenerForm extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            submitting: false,
-            errors: null
+            errors: null,
+            submitting: false
         }
     }
 
@@ -42,20 +42,26 @@ class GardenerForm extends React.Component {
         }).catch((errors) => {
             const responseErrors = errors.graphQLErrors[0].message.split(',');
             this.setState({
-                errors: responseErrors,
-                submitting: false
+                submitting: false,
+                errors: responseErrors
             });
         })
     }
 
+    hasError = (contains) => {
+        const { errors } = this.state;
+        return errors && errors.filter(error => error.indexOf(contains) !== -1)[0]
+    }
+
     signInUser = (gardener) => {
-        const { signinMutate } = this.props;
+        const { form, signinMutate } = this.props;
         signinMutate({
             variables: {
                 username: gardener.username,
                 password: gardener.password
             }
         });
+        form.reset();
     }
 
     render() {
@@ -89,17 +95,11 @@ class GardenerForm extends React.Component {
         )
     }
 
-    hasError = (contains) => {
-        const { errors } = this.state;
-        return errors && errors.filter(error => error.indexOf(contains) !== -1)[0]
-    }
-
     renderFields() {
         const {
             form,
             mutationName,
         } = this.props;
-        const { errors } = this.state;
         return (
             <View style={{ padding: 20, paddingBottom: 0 }}>
                 <View style={{ flexDirection: 'row', alignItems: 'center' }}>

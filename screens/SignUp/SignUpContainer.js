@@ -13,8 +13,8 @@ export default R.compose(
         () => ({
             args: {},
             backTo: 'Login',
-            screenTitle: 'Criar uma conta',
-            mutationName: 'gardenerCreate'
+            screenTitle: 'Criar minha conta',
+            mutationName: 'gardenerCreate',
         })
     ),
     withMutation(
